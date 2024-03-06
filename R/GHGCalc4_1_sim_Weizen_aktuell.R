@@ -35,7 +35,8 @@ GHGCalculator_W_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
                                 Dis.EF1.F_CR = 0.006,                                     #Other N inputs in wet climates IPCC (2019)
                                 Dis.IPCC.EF4 = 0.014,                                     #wet climates IPCC (2019)
                                 Dis.CAS.Frac_GASF = 0.05,
-                                EF.SN.Prod = 3.469,                                       # N fertilizer production emissions # recalculated JRC-Mix 3.951 kg CO2eq / kg N
+                                Frac_NLeach = 0.24,
+								EF.SN.Prod = 3.469,                                       # N fertilizer production emissions # recalculated JRC-Mix 3.951 kg CO2eq / kg N
                                 Show=list("complete", "eec", "eec.ha", "eec.MJ",          # definition of output variables, see ValidArg.Show
                                           "N2O", "N2O.detail.ha", "N2O.detail.MJ",
                                           "N2O.detail.ha.more", "N2O.detail.MJ.more",
@@ -147,7 +148,7 @@ GHGCalculator_W_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
     Ref.IPCC.EF4 <- Dis.IPCC.EF4
   }
 
-  Ref.IPCC.Frac_LEACH <- 0.24  # (IPCC, 2019)
+  Ref.IPCC.Frac_LEACH <- Frac_NLeach  # (IPCC, 2019)
   Ref.IPCC.EF5 <- 0.011
 
 
