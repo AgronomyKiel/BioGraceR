@@ -1,2 +1,2 @@
-# BioGraceR
-R scripts for calculation of GHG emissions and reductions according to BIOGRACE 4
+# RBioGrace
+R implementation of BioGrace calculation tools
