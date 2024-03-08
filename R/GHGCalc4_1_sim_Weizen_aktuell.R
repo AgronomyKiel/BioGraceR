@@ -11,6 +11,79 @@
 # rm(list = ls(all=T))
 # library(tidyverse)
 
+#' Title
+#'
+#' @param Ertrag
+#' seed yield in (kg/ha) give as fresh dry matter
+#' @param Treatment
+#' Optional Vector with Treatment/Variant-Codes
+#' @param pH
+#' @param Feuchte
+#' water content of OSR seed given as (\%), default value is 9\%
+#' @param SimNLeach
+#' simulated nitrogen leaching in (kg/ha)
+#' @param SimN2ON
+#' simulated N2O-N emissions in (kg/ha)
+#' @param SimResidue
+#' #'  Optional direct quantification of N-amount in Crop residues in (kg N/ha), by using own estimates or from simulation modelling
+#' @param sim
+#' logical (vector) for using own estimates/simulated input values
+#' @param Nmineral
+#' mineral N-fertilisation in (kg N/ha), default value is 114 kg N/ha
+#' @param Norgan
+#' organic N fertilization in (kg/ha)
+#' @param P2O5
+#' Optional fertilisation rate of phosphorous in (kg P2O5/ha), if not given, fertilisation is assumed to replace P offtake by seeds
+#' @param K2O
+#' Optional fertilisation rate of potassium in (kg K2O/ha), if not given fertilisation is assumed to replace K offtake by seeds
+#' @param CaCO3
+#' Optional rate of liming in (kg CaCO3/ha)
+#' @param Field.acidification
+#' @param Dataset
+#' @param PSM
+#' Input of plant protection products in (kg/ha)
+#' @param Saatgut
+#' seed input (kg/ha)
+#' @param Diesel
+#' Diesel use for field operations default value is 83.3 l/ha
+#' @param Irrigation_mm
+#' amount of irrigation in (mm), default value is 0 mm
+#' @param Irri.Energy
+#' energy use for irrigation in (MJ/mm), default value is 0 MJ/mm
+#' @param Irri.ef.Energy
+#' energy use for irrigation in (gCO2eq/MJ used energy), default value is 0 gCO2eq/MJ
+#' @param ep
+#' emissions from production of bioethanol (g CO2eq/MJ), default is 15.1 g CO2eq/MJ,
+#' Red II(2018)other cereals excluding maize ethanol (natural gas  as  process fuel in conventional boiler)
+#' @param etd
+#' emissions from transport and distribution of bioethanol (g CO2eq/MJ), default is 2.2 g CO2eq/MJ,
+#' @param ResidueCalc
+#'  Optional method for calculating the amount of N in crop residues, default value is "BioGrace"
+#' @param N2OCalcMethod
+#' "Tier1", "custom" Tier1: EF1=0.01, custom = Verwendung spezifischer Dis.EF1 wie unten gegeben
+#' @param N2OSimMethod
+#' "HUME" ,"GNOC", "DNDC" und "MODE" angeben, wenn SimN2ON nicht 0, steuert die Aufteilung direkter Emissionen auf F_SN, F_ON und F_ER
+#' @param IncludeOrganic
+#' @param IncludeResidues
+#' @param IncludeSynthetic
+#' @param IncludeDrying
+#' @param IncludeVolatil
+#' @param IncludeLeaching
+#' @param OtherEm_ha
+#' @param OtherEm_MJ
+#' @param Dis.EF1.F_SN
+#' @param Dis.EF1.F_ON
+#' @param Dis.EF1.F_CR
+#' @param Dis.IPCC.EF4
+#' @param Dis.CAS.Frac_GASF
+#' @param Frac_NLeach
+#' @param EF.SN.Prod
+#' @param Show
+#'
+#' @return
+#' @export
+#'
+#' @examples
 GHGCalculator_W_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
                                 SimNLeach=0, SimN2ON=0, SimResidue=0, sim=FALSE,  ## sim=TRUE , wenn N-Auswaschung SimNLeach als WErt vorgegeben
                                 Nmineral=114,Norgan=0,
@@ -24,19 +97,21 @@ GHGCalculator_W_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
                                 ResidueCalc="BioGrace",
                                 N2OCalcMethod="Tier1",# "Tier1", "custom" Tier1: EF1=0.01, custom = Verwendung spezifischer Dis.EF1 wie unten gegeben
                                 N2OSimMethod= "IPCC", # "HUME" ,"GNOC", "DNDC" und "MODE" angeben, wenn SimN2ON nicht 0, steuert die Aufteilung direkter Emissionen auf F_SN, F_ON und F_ER
-                                IncludeOrganic=TRUE,  #
-                                IncludeResidues=TRUE, IncludeSynthetic=TRUE,
-                                IncludeDrying=FALSE, IncludeVolatil=TRUE,
+                                IncludeOrganic=TRUE,  # "Include..." includes processes and N sources for calculating direct an indirect N2O-Emissions for Output
+                                IncludeResidues=TRUE,
+                                IncludeSynthetic=TRUE,
+                                IncludeDrying=FALSE,
+                                IncludeVolatil=TRUE,
                                 IncludeLeaching=TRUE,  ## "Include..." includes processes and N sources for calculating direct an indirect N2O-Emissions for Output
-                                OtherEm_ha=0,
-                                OtherEm_MJ=0,
-                                Dis.EF1.F_SN = 0.016,                                     #Synthetic fertilizer inputs in wet climates IPCC(2019)
-                                Dis.EF1.F_ON = 0.006,                                     #Other N inputs in wet climates IPCC (2019)
-                                Dis.EF1.F_CR = 0.006,                                     #Other N inputs in wet climates IPCC (2019)
-                                Dis.IPCC.EF4 = 0.014,                                     #wet climates IPCC (2019)
-                                Dis.CAS.Frac_GASF = 0.05,
-                                Frac_NLeach = 0.24,
-								EF.SN.Prod = 3.469,                                       # N fertilizer production emissions # recalculated JRC-Mix 3.951 kg CO2eq / kg N
+                                OtherEm_ha=0, # Additional Emissions in kg CO2eq/ha
+                                OtherEm_MJ=0, # Additional Emissions in kg CO2eq/MJ
+                                Dis.EF1.F_SN = 0.016, #Synthetic fertilizer inputs in wet climates IPCC(2019)
+                                Dis.EF1.F_ON = 0.006, #Other N inputs in wet climates IPCC (2019)
+                                Dis.EF1.F_CR = 0.006, #Other N inputs in wet climates IPCC (2019)
+                                Dis.IPCC.EF4 = 0.014, #wet climates IPCC (2019)
+                                Dis.CAS.Frac_GASF = 0.05, #Fraction of N input prone to volatilization (IPCC, 2019)
+                                Frac_NLeach = 0.24, # fraction of N input prone to leaching (IPCC, 2019)
+								                EF.SN.Prod = 3.469, # N fertilizer production emissions # recalculated JRC-Mix 3.951 kg CO2eq / kg N
                                 Show=list("complete", "eec", "eec.ha", "eec.MJ",          # definition of output variables, see ValidArg.Show
                                           "N2O", "N2O.detail.ha", "N2O.detail.MJ",
                                           "N2O.detail.ha.more", "N2O.detail.MJ.more",
