@@ -153,9 +153,9 @@ GHGCalculator_W_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   #
 
   Durchschnitt.Ertrag.DE <- 7517 ##DM
-  #German Federal Statistical Office-Destatis. German wheat production area and annual wheat yield. Available
+  # German Federal Statistical Office-Destatis. German wheat production area and annual wheat yield. Available
   # online: https://www.destatis.de/DE/ZahlenFakten/Wirtschaftsbereiche/LandForstwirtschaftFischerei/
-  #   FeldfruechteGruenland/Tabellen/FeldfruechteZeitreihe.html (accessed on 15.11.2021)
+  # FeldfruechteGruenland/Tabellen/FeldfruechteZeitreihe.html (accessed on 15.11.2021)
 
   ### Referenz-/ Stantardwerte ###
   Ref.RED.ef.gasoline <-  94         ##red II  ##93.3 g CO2eq/MJ (Edward, 2019)
