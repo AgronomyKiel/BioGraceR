@@ -21,7 +21,7 @@
 
 ### for the following calculations use skript -Biograce_Beispiel: (X:\rabah_nasser\R_skripts\Biograce_Beispiel)
 
-#' Title function for calculation of GHG-Emissions and savings of Biodiesel according to BioGrace II
+#' Title GHGCalculator_OSR_4_1_REDII
 #'
 #' @param Ertrag
 #' seed yield in (kg/ha) give as fresh dry matter
@@ -100,13 +100,12 @@
 #' @param Show
 #' Options for output
 #'
-#' @return
-#' data frame with results of calculation, different details can be choosen from
+#' @return data frame with outputs according to the Show parameter
 #' @export
 #'
 #' @examples
 
-GHGCalculator4_1_REDII <- function(Ertrag=3503,
+GHGCalculator_OSR_4_1_REDII <- function(Ertrag=3503,
                                    Treatment,
                                    Feuchte=9.0,
                                    Oil_9=42.6,

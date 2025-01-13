@@ -1,4 +1,5 @@
 Version: 1.0
+ProjectId: 576cf941-7a0e-47fb-997d-6468db35cc8f
 
 RestoreWorkspace: Default
 SaveWorkspace: Default
@@ -14,3 +15,8 @@ LaTeX: pdfLaTeX
 
 AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
+
+BuildType: Package
+PackageUseDevtools: Yes
+PackageInstallArgs: --no-multiarch --with-keep.source
+PackageRoxygenize: rd,collate,namespace,vignette

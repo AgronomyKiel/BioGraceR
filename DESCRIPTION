@@ -6,10 +6,10 @@ Author: Ingo Pahlmann, Rimah Rabah Nasser, Dorothee Neukam, Henning Kage
 Maintainer: The package maintainer <kage@pflanzenbau.uni-kiel.det>
 Description: Calculation of GHG emissions from Bioenergy production with focus on field emissions
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

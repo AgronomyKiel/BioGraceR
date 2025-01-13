@@ -11,7 +11,7 @@
 # rm(list = ls(all=T))
 # library(tidyverse)
 
-#' Title
+#' Title GHGCalculator_Wheat_4_1
 #'
 #' @param Ertrag
 #' seed yield in (kg/ha) give as fresh dry matter
@@ -80,11 +80,11 @@
 #' @param EF.SN.Prod
 #' @param Show
 #'
-#' @return
+#' @return data frame with outputs according to the Show parameter
 #' @export
 #'
 #' @examples
-GHGCalculator_W_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
+GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
                                 SimNLeach=0, SimN2ON=0, SimResidue=0, sim=FALSE,  ## sim=TRUE , wenn N-Auswaschung SimNLeach als WErt vorgegeben
                                 Nmineral=114,Norgan=0,
                                 P2O5=NULL, K2O=NULL, CaCO3=NULL,  ## Wenn keine Werte gegeben, dann werden aus Ertrag jeweilige Düngehöhen errechnet
