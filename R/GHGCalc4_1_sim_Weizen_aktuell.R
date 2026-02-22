@@ -415,14 +415,15 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=NA, Feuchte=13.5,
   if(is.numeric(pH)) {
     pH_in <- Out.Ertrag.Feucht * 0
     pH[] <- Recycle(pH, pH_in)
-  }
-  #names(Dataset)
-  if(!is.null(pH) & !is.numeric(pH)){
-    if(!is.null(Dataset) & "pH" %in% names (Dataset)){
-      pH <- Dataset$pH
-    }else{ print(paste("Fehler in 'pH':",
-                       "Erwartet wird Spaltenbezeichner für 'Dataset'",
-                       "oder ein numerischer Wert/Vektor"))
+  } else {
+    #names(Dataset)
+    if(!is.null(pH) & !is.numeric(pH)){
+      if(!is.null(Dataset) & "pH" %in% names (Dataset)){
+        pH <- Dataset$pH
+      }else{ print(paste("Fehler in 'pH':",
+                         "Erwartet wird Spaltenbezeichner für 'Dataset'",
+                         "oder ein numerischer Wert/Vektor"))
+      }
     }
   }
   names(pH) <- "pH"
