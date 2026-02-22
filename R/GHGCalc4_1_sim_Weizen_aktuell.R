@@ -84,7 +84,7 @@
 #' @export
 #'
 #' @examples
-GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
+GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=NA, Feuchte=13.5,
                                 SimNLeach=0, SimN2ON=0, SimResidue=0, sim=FALSE,  ## sim=TRUE , wenn N-Auswaschung SimNLeach als WErt vorgegeben
                                 Nmineral=114,Norgan=0,
                                 P2O5=NULL, K2O=NULL, CaCO3=NULL,  ## Wenn keine Werte gegeben, dann werden aus Ertrag jeweilige Düngehöhen errechnet
@@ -292,8 +292,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
 
   if(!is.null(Ertrag)&!is.numeric(Ertrag)){
-    if(!is.null(Dataset)&Ertrag %in% names (Dataset)){
-      Out.Ertrag.Feucht <- Dataset[Ertrag]
+    if(!is.null(Dataset) & "Ertrag" %in% names (Dataset)){
+      Out.Ertrag.Feucht <- Dataset$Ertrag
     }else{ print(paste("Fehler in 'Ertrag':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -309,8 +309,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
 
   if(!is.null(Feuchte) & !is.numeric(Feuchte)){
-    if(!is.null(Dataset)&Feuchte %in% names (Dataset)){
-      Out.Feuchte <- Dataset[Feuchte] /100
+    if(!is.null(Dataset) & "Feuchte" %in% names (Dataset)){
+      Out.Feuchte <- Dataset$Feuchte /100
     }else{ print(paste("Fehler in 'Feuchte':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -332,8 +332,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
 
   ## Treatment name
   if(!is.null(Dataset)){
-    if(!is.null(Treatment) & "Treatment" %in% names (Dataset)) {
-      Treatment<- Dataset[Treatment]
+    if(is.null(Treatment) & "Treatment" %in% names (Dataset)) {
+      Treatment<- Dataset$Treatment
 
     } else {
 
@@ -386,8 +386,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
 
   if(!is.null(Nmineral) & !is.numeric(Nmineral)){
-    if(!is.null(Dataset) & Nmineral %in% names (Dataset)){
-      In.F_SN <- Dataset[Nmineral]
+    if(!is.null(Dataset) & "Nmineral" %in% names (Dataset)){
+      In.F_SN <- Dataset$Nmineral
     }else{ print(paste("Fehler in 'Nmineral':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -402,8 +402,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
 
   if(!is.null(Norgan) & !is.numeric(Norgan)){
-    if(!is.null(Dataset) & Norgan %in% names (Dataset)){
-      In.F_ON <- Dataset[Norgan]
+    if(!is.null(Dataset) & "Norgan" %in% names (Dataset)){
+      In.F_ON <- Dataset$Norgan
     }else{ print(paste("Fehler in 'Norgan':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -418,8 +418,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
   #names(Dataset)
   if(!is.null(pH) & !is.numeric(pH)){
-    if(!is.null(Dataset) & pH %in% names (Dataset)){
-      pH <- Dataset[pH]
+    if(!is.null(Dataset) & "pH" %in% names (Dataset)){
+      pH <- Dataset$pH
     }else{ print(paste("Fehler in 'pH':",
                        "Erwartet wird Spaltenbezeichner für 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -440,8 +440,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
 
   if(!is.null(P2O5) & !is.numeric(P2O5)){
-    if(!is.null(Dataset) & P2O5 %in% names (Dataset)){
-      In.P2O5 <- Dataset[P2O5]
+    if(!is.null(Dataset) & "P2O5" %in% names (Dataset)){
+      In.P2O5 <- Dataset$P2O5
     }else{ print(paste("Fehler in 'P2O5':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -459,8 +459,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
     In.K2O[] <- Recycle(K2O, In.K2O) # der selben Länge wie Datensatz vorliegen
   }
   if(!is.null(K2O)&!is.numeric(K2O)){
-    if(!is.null(Dataset)&K2O %in% names (Dataset)){
-      In.K2O <- Dataset[K2O]
+    if(!is.null(Dataset)& "K2O" %in% names (Dataset)){
+      In.K2O <- Dataset$K2O
     }else{ print(paste("Fehler in 'K2O':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -480,8 +480,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
     In.CaCO3[] <- Recycle(CaCO3, In.CaCO3)
   }
   if(!is.null(CaCO3) & !is.numeric(CaCO3)){
-    if(!is.null(Dataset) & CaCO3 %in% names (Dataset)){
-      In.CaCO3 <- Dataset[CaCO3]
+    if(!is.null(Dataset) & "CaCO3" %in% names (Dataset)){
+      In.CaCO3 <- Dataset$CaCO3
     }else{ print(paste("Fehler in 'CaCO3':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -497,8 +497,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
 
   if(!is.null(PSM) & !is.numeric(PSM)){
-    if(!is.null(Dataset) & PSM %in% names (Dataset)){
-      In.PSM <- Dataset[PSM]
+    if(!is.null(Dataset) & "PSM" %in% names (Dataset)){
+      In.PSM <- Dataset$PSM
     }else{ print(paste("Fehler in 'PSM':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -513,8 +513,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
 
   if(!is.null(Saatgut) & !is.numeric(Saatgut)){
-    if(!is.null(Dataset) & Saatgut %in% names (Dataset)){
-      In.Saatgut <- Dataset[Saatgut]
+    if(!is.null(Dataset) & "Saatgut" %in% names (Dataset)){
+      In.Saatgut <- Dataset$Saatgut
     }else{ print(paste("Fehler in 'Saatgut':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -528,8 +528,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
     In.Diesel[] <- Recycle(Diesel, In.Diesel)
   }
   if(!is.null(Diesel) & !is.numeric(Diesel)){
-    if(!is.null(Dataset) & Diesel %in% names (Dataset)){
-      In.Diesel <- Dataset[Diesel]
+    if(!is.null(Dataset) & "Diesel" %in% names (Dataset)){
+      In.Diesel <- Dataset$Diesel
     }else{ print(paste("Fehler in 'Diesel':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -543,8 +543,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
     In.Irri.Amount_mm[] <- Recycle(Irrigation_mm, In.Irri.Amount_mm)
   }
   if(!is.null(Irrigation_mm) & !is.numeric(Irrigation_mm)){
-    if(!is.null(Dataset) & Irrigation_mm %in% names (Dataset)){
-      In.Irri.Amount_mm <- Dataset[Irrigation_mm]
+    if(!is.null(Dataset) & "Irrigation_mm" %in% names (Dataset)){
+      In.Irri.Amount_mm <- Dataset$Irrigation_mm
     }else{ print(paste("Fehler in 'Irrigation_mm':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -558,8 +558,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
     In.Irri.EnergyUseMJ_mm[] <- Recycle(Irri.Energy, In.Irri.EnergyUseMJ_mm)
   }
   if(!is.null(Irri.Energy) & !is.numeric(Irri.Energy)){
-    if(!is.null(Dataset) & Irri.Energy %in% names (Dataset)){
-      In.Irri.EnergyUseMJ_mm <- Dataset[Irri.Energy]
+    if(!is.null(Dataset) & "Irri.Energy" %in% names (Dataset)){
+      In.Irri.EnergyUseMJ_mm <- Dataset$Irri.Energy
     }else{ print(paste("Fehler in 'Irri.Energy':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -573,8 +573,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
     In.ef.Irri.Energy[] <- Recycle(Irri.ef.Energy, In.ef.Irri.Energy)
   }
   if(!is.null(Irri.ef.Energy) & !is.numeric(Irri.ef.Energy)){
-    if(!is.null(Dataset) & Irri.ef.Energy %in% names (Dataset)){
-      In.ef.Irri.Energy <- Dataset[Irri.ef.Energy]
+    if(!is.null(Dataset) & "Irri.ef.Energy" %in% names (Dataset)){
+      In.ef.Irri.Energy <- Dataset$Irri.ef.Energy
     }else{ print(paste("Fehler in 'Irri.ef.Energy':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -589,8 +589,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
     In.SimN2ON[] <- Recycle(SimN2ON, In.SimN2ON)
   }
   if(!is.null(SimN2ON) & !is.numeric(SimN2ON)){
-    if(!is.null(Dataset) & SimN2ON %in% names (Dataset)){
-      In.SimN2ON <- Dataset[SimN2ON]
+    if(!is.null(Dataset) & "SimN2ON" %in% names (Dataset)){
+      In.SimN2ON <- Dataset$SimN2ON
     }else{ print(paste("Fehler in 'SimN2ON':",
                        "Erwartet wird Spaltenbezeichner für 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -605,8 +605,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
     In.Field.acidification[] <- Recycle(Field.acidification, In.Field.acidification)
   }
   if(!is.null(Field.acidification) & !is.numeric(Field.acidification)){
-    if(!is.null(Dataset) & Field.acidification %in% names (Dataset)){
-      In.Field.acidification <- Dataset[Field.acidification]
+    if(!is.null(Dataset) & "Field.acidification" %in% names (Dataset)){
+      In.Field.acidification <- Dataset$Field.acidification
     }else{ print(paste("Fehler in 'Field.acidification':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -644,8 +644,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
 
   if(!is.null(OtherEm_ha) & !is.numeric(OtherEm_ha)){
-    if(!is.null(Dataset)&OtherEm_ha %in% names (Dataset)){
-      GHG.ha.OtherEm_ha <- Dataset[OtherEm_ha]
+    if(!is.null(Dataset)& "OtherEm_ha" %in% names (Dataset)){
+      GHG.ha.OtherEm_ha <- Dataset$OtherEm_ha
     }else{ GHG.ha.OtherEm_ha=0
     }
   }
@@ -659,8 +659,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
 
   if(!is.null(OtherEm_MJ) & !is.numeric(OtherEm_MJ)){
-    if(!is.null(Dataset)&OtherEm_MJ %in% names (Dataset)){
-      GHG.MJ.OtherEm_MJ <- Dataset[OtherEm_MJ]
+    if(!is.null(Dataset)& "OtherEm_MJ" %in% names (Dataset)){
+      GHG.MJ.OtherEm_MJ <- Dataset$OtherEm_MJ
     }else{ print(paste("Fehler in 'OtherEm_MJ':",
                        "Erwartet wird Spaltenbezeichner fuer 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
@@ -746,8 +746,8 @@ GHGCalculator_Wheat_4_1 <- function(Ertrag, Treatment, pH=6.5, Feuchte=13.5,
   }
   names(In.F_CR.Sim) <- "In.F_CR.Sim"
   if(!is.null(SimResidue) & !is.numeric(SimResidue)){
-    if(!is.null(Dataset) & SimResidue %in% names (Dataset)){
-      In.F_CR.Sim <- Dataset[SimResidue]
+    if(!is.null(Dataset) & "SimResidue" %in% names (Dataset)){
+      In.F_CR.Sim <- Dataset$SimResidue
     }else{ print(paste("Fehler in 'SimResidue':",
                        "Erwartet wird Spaltenbezeichner für 'Dataset'",
                        "oder ein numerischer Wert/Vektor"))
